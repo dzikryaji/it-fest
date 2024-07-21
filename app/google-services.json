@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1015342863296",
+    "project_id": "it-fest-15696",
+    "storage_bucket": "it-fest-15696.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015342863296:android:6908e2704846eb69172e25",
+        "android_client_info": {
+          "package_name": "com.mobile.itfest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7DKLUGEtAXR-mLOW6UhgCI7e6WilE8Yg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
