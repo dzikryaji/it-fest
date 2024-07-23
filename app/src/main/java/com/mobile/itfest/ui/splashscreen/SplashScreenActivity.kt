@@ -5,12 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.mobile.itfest.R
+import androidx.lifecycle.lifecycleScope
+import com.mobile.itfest.databinding.ActivitySplashScreenBinding
 import com.mobile.itfest.ui.ViewModelFactory
 import com.mobile.itfest.ui.login.LoginActivity
 import com.mobile.itfest.ui.main.MainActivity
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
+
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
@@ -18,10 +20,15 @@ class SplashScreenActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
 
+    private lateinit var binding: ActivitySplashScreenBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash_screen)
-        runBlocking {
+        binding = ActivitySplashScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+
+        lifecycleScope.launch {
             delay(3000L)
             val intent = if (viewModel.checkLoggedInState()) {
                 Intent(this@SplashScreenActivity, MainActivity::class.java)

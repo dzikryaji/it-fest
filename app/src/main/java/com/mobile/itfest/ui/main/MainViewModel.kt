@@ -4,5 +4,5 @@ import androidx.lifecycle.ViewModel
 import com.mobile.itfest.data.Repository
 
 class MainViewModel(private val repository: Repository): ViewModel() {
-    fun checkLoggedInState() = repository.checkLoggedInState()
+    fun logout() = repository.logout()
 }

@@ -11,10 +11,10 @@ import kotlinx.coroutines.launch
 class RegisterViewModel(private val repository: Repository):ViewModel() {
     private val result = MutableLiveData<Result<String>>()
 
-    fun register(email: String, password: String): LiveData<Result<String>> {
+    fun register(name: String, email: String, password: String): LiveData<Result<String>> {
         result.value = Result.Loading
         viewModelScope.launch {
-            result.value = repository.register(email, password)
+            result.value = repository.register(name, email, password)
         }
         return result
     }
