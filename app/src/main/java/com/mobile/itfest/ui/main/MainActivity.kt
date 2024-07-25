@@ -10,6 +10,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
@@ -18,7 +19,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import com.google.firebase.Timestamp
 import com.mobile.itfest.R
+import com.mobile.itfest.data.Result
+import com.mobile.itfest.data.model.FocusTime
 import com.mobile.itfest.databinding.ActivityMainBinding
 import com.mobile.itfest.ui.ViewModelFactory
 import com.mobile.itfest.ui.login.LoginActivity
@@ -33,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     ) { isGranted: Boolean? ->
         if (!isGranted!!)
             Toast.makeText(this,
-                "Unable to display Foreground service notification due to permission decline",
+                "Unable to display notification due to permission decline",
                 Toast.LENGTH_LONG)
     }
 
@@ -41,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var notificationManager: NotificationManager
     private lateinit var countDownTimer: CountDownTimer
     private lateinit var progressAnimator: ObjectAnimator
+    private lateinit var focusTime: FocusTime
     private val duration = 2 * 60 * 1000L // 2 Minutes
     private var elapsedTime = 0L // Initial elapsed time
     private var isPaused = false
@@ -58,6 +63,12 @@ class MainActivity : AppCompatActivity() {
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) !=
                 PackageManager.PERMISSION_GRANTED)
                 requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        }
+
+        viewModel.retrieveFocusTime().observe(this) {
+            if (it is Result.Success) {
+                Log.d(TAG, "onCreate: ${it.data}")
+            }
         }
     }
 
@@ -80,6 +91,8 @@ class MainActivity : AppCompatActivity() {
             override fun onFinish() {
                 binding.tvTime.text = "00:00"
                 animateProgressBar(binding.progressBarCircular.progress, duration.toInt())
+                focusTime.focusTime = duration
+                viewModel.uploadFocusTime(focusTime)
                 notificationManager.cancel(NOTIFICATION_ID)
             }
         }
@@ -99,6 +112,7 @@ class MainActivity : AppCompatActivity() {
                     countDownTimer.start()
                     btnStart.visibility = View.GONE
                     btnPause.visibility = View.VISIBLE
+                    focusTime = FocusTime(focusTime = 0L, timeStamp = Timestamp.now())
                 }
             }
 
@@ -110,6 +124,10 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     countDownTimer.cancel()
                     btnPause.text = "Resume"
+                    if (elapsedTime - focusTime.focusTime > 5000) {
+                        focusTime.focusTime = elapsedTime
+                        viewModel.uploadFocusTime(focusTime)
+                    }
                 }
                 isPaused = !isPaused
             }
@@ -178,6 +196,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val TAG = "MainActivity"
         const val CHANNEL_ID = "timer_channel_id"
         const val CHANNEL_NAME = "Timer Channel"
         const val NOTIFICATION_ID = 1
