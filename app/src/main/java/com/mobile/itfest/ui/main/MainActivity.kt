@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "onCreate: ${it.data}")
             }
         }
+        viewModel.fetchTop10UsersByFocusTime()
     }
 
     private fun setupTimer() {
@@ -133,6 +134,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             btnReset.setOnClickListener {
+                if (!isPaused) {
+                    if (elapsedTime - focusTime.focusTime > 5000) {
+                        focusTime.focusTime = elapsedTime
+                        viewModel.uploadFocusTime(focusTime)
+                    }
+                }
                 countDownTimer.cancel()
                 progressAnimator.cancel()
                 binding.progressBarCircular.progress = 0

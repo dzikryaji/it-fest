@@ -4,16 +4,20 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.toObject
 import com.mobile.itfest.data.model.FocusTime
+import com.mobile.itfest.data.model.User
 import kotlinx.coroutines.tasks.await
 
 class Repository(
     private val auth: FirebaseAuth,
     private val firestore: FirebaseFirestore
 ) {
+    private val userCollection = firestore.collection("users")
+    private val focusTimeCollection = firestore.collection("focus_time")
+
+
     fun checkLoggedInState(): Boolean {
         val user = auth.currentUser
         Log.d(TAG, "checkLoggedInState: $user")
@@ -27,7 +31,9 @@ class Repository(
                 Result.Success("Login Success")
             } ?: Result.Error("Wrong Email or Password")
         } catch (e: Exception) {
-            Result.Error("Something went wrong: ${e.message}")
+            e.printStackTrace()
+            Log.d(TAG, "login: ${e.message}")
+            Result.Error("${e.message}")
         }
     }
 
@@ -35,29 +41,32 @@ class Repository(
         return try {
             val authResult = auth.createUserWithEmailAndPassword(email, password).await()
             authResult.user?.let {
-                updateName(name)
+                val uid = it.uid
+                val userData = mapOf(
+                    "name" to name,
+                    "email" to email
+                )
+                userCollection.document(uid).set(userData).await()
+                Result.Success("User Registered")
             } ?: Result.Error("User creation failed")
         } catch (e: Exception) {
+            e.printStackTrace()
             Log.d(TAG, "register: ${e.message}")
-            Result.Error("Something went wrong: ${e.message}")
+            Result.Error("${e.message}")
         }
     }
 
-    private suspend fun updateName(name: String): Result<String> {
+    suspend fun retrieveUser(): Result<User> {
         val user = auth.currentUser
         return if (user != null) {
-            val profileUpdates = UserProfileChangeRequest.Builder()
-                .setDisplayName(name)
-                .build()
-            try {
-                user.updateProfile(profileUpdates).await()
-                Result.Success("Profile updated successfully")
-            } catch (e: Exception) {
-                Log.d(TAG, "updateProfile: ${e.message}")
-                Result.Error("Something went wrong: ${e.message}")
+            val userProfile = userCollection.document(user.uid).get().await().toObject<User>()
+            if (userProfile != null) {
+                Result.Success(userProfile)
+            } else {
+                Result.Error("User profile not found")
             }
         } else {
-            Result.Error("No authenticated user found")
+            Result.Error("Please log in first")
         }
     }
 
@@ -69,7 +78,6 @@ class Repository(
             val userId = user.uid
             focusTime.userId = userId
 
-            val focusTimeCollection = firestore.collection("focus_time")
             val query = focusTimeCollection
                 .whereEqualTo("userId", userId)
                 .whereEqualTo("timeStamp", focusTime.timeStamp)
@@ -96,16 +104,15 @@ class Repository(
         val user = auth.currentUser
         if (user != null) {
             val userId = user.uid
-            val focusTimeCollection = firestore.collection("focus_time")
             val query = focusTimeCollection
                 .whereEqualTo("userId", userId)
-            
+
             query.addSnapshotListener { value, error ->
                 error?.let {
                     Log.d(TAG, "retrieveUserFocusTime: ${it.message}")
                     result.value = it.message?.let { msg -> Result.Error(msg) }
                 }
-                value?.let {snapshot ->
+                value?.let { snapshot ->
                     val focusTimeList = snapshot.documents
                         .mapNotNull { it.toObject<FocusTime>() } // Convert each document to FocusTime and filter out nulls
                     result.value = Result.Success(focusTimeList)
@@ -117,6 +124,39 @@ class Repository(
             result.value = Result.Error("User not logged in")
         }
         return result
+    }
+
+    suspend fun fetchTop10UsersByFocusTime() {
+
+        try {
+            // Fetch all focus time records
+            val focusTimeSnapshot = focusTimeCollection.get().await()
+            val focusTimeRecords =
+                focusTimeSnapshot.documents.mapNotNull { it.toObject(FocusTime::class.java) }
+
+            // Aggregate focus time for each user
+            val userFocusTimeMap = focusTimeRecords.groupBy { it.userId }
+                .mapValues { entry -> entry.value.sumOf { it.focusTime } }
+            Log.d(TAG, "User Focus Time Map: $userFocusTimeMap")
+
+            // Sort users by total focus time (highest to lowest)
+            val sortedUserFocusTimeList = userFocusTimeMap.entries
+                .sortedByDescending { it.value }
+                .map { it.toPair() }.take(10)
+            Log.d(TAG, "Sorted User Focus Time List: $sortedUserFocusTimeList")
+
+            // Fetch user details
+            val top10 = sortedUserFocusTimeList.map { (userId, totalFocusTime) ->
+                val userSnapshot = userCollection.document(userId).get().await()
+                userSnapshot.toObject(User::class.java)?.copy(totalFocusTime = totalFocusTime.toInt())
+            }
+
+            Log.d(TAG, "Top 10: $top10")
+        } catch (e: Exception) {
+            // Handle errors and return an empty list or handle as needed
+            println("Error fetching user data: ${e.message}")
+            Log.d(TAG, "fetchTop10UsersByFocusTime: ${e.javaClass.name} : ${e.message}")
+        }
     }
 
 

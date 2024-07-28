@@ -19,4 +19,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun retrieveFocusTime(): LiveData<Result<List<FocusTime>>> = repository.retrieveUserFocusTime()
+
+    fun fetchTop10UsersByFocusTime() {
+        viewModelScope.launch {
+            repository.fetchTop10UsersByFocusTime()
+        }
+    }
 }
