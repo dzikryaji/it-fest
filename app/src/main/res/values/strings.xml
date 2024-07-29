@@ -1,9 +1,20 @@
 <resources>
     <string name="app_name">IT Fest</string>
+
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="name">Name</string>
     <string name="logout">Logout</string>
+
+    <string name="error_required">This field can\'t be empty</string>
+    <string name="error_password">Password must be 8 characters or more</string>
+    <string name="error_email">Please fill a valid email</string>
+    <string name="error_name">Name can\'t be empty</string>
+    <string name="welcome_back">Hi, Welcome Back!</string>
+    <string name="register_suggestion">Doesn\'t have an account?</string>
+    <string name="welcome">Welcome</string>
+    <string name="register_me">Register Me!</string>
+    <string name="login_suggestion">Already have an account?</string>
 </resources>
