@@ -23,7 +23,7 @@ import java.util.Locale
 
 class MonthChartFragment : Fragment() {
 
-     val dummyFocusTimeList = listOf(
+  /*   val dummyFocusTimeList = listOf(
        FocusTime(
            userId = "3O7q68anrLcI93HY8V0aoe11Lon1",
            focusTime = 10000,
@@ -39,7 +39,7 @@ class MonthChartFragment : Fragment() {
            focusTime = 1000000,
            timeStamp = Timestamp(Date(2024 - 1900, 1, 15, 8, 30, 0)) // July 28, 2024 at 8:30:00 AM UTC+7
        )
-   )
+   )*/
 
     private lateinit var _binding: FragmentMonthChartBinding
     private val viewModel by lazy {
@@ -68,7 +68,7 @@ class MonthChartFragment : Fragment() {
         viewModel.retrieveFocusTime().observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success -> {
-                    initiateMonthChart(/*result.data*/)
+                    initiateMonthChart(result.data)
                     focusTime = result.data
                 }
                 else -> {
@@ -81,13 +81,13 @@ class MonthChartFragment : Fragment() {
         _binding.prevButton.setOnClickListener {
             calendar.add(Calendar.YEAR, -1)
             updateMonthDisplay()
-            initiateMonthChart(/*focusTime*/)
+            initiateMonthChart(focusTime)
         }
 
         _binding.nextButton.setOnClickListener {
             calendar.add(Calendar.YEAR, 1)
             updateMonthDisplay()
-            initiateMonthChart(/*focusTime*/)
+            initiateMonthChart(focusTime)
         }
     }
 
@@ -96,8 +96,8 @@ class MonthChartFragment : Fragment() {
         _binding.monthTextView.text = dateFormat.format(calendar.time)
     }
 
-    private fun initiateMonthChart(/*focusTimeList: List<FocusTime>?*/) {
-        val focusTimeList = dummyFocusTimeList
+    private fun initiateMonthChart(focusTimeList: List<FocusTime>?) {
+/*        val focusTimeList = dummyFocusTimeList*/
 
         if (focusTimeList == null) {
             Log.d(TAG, "Error: focusTimeList is null")
