@@ -8,6 +8,16 @@
     tools:context=".ui.main.MainActivity">
 
     <Button
+        android:id="@+id/button_chart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Visualizer"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarCircular"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/btn_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

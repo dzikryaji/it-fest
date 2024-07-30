@@ -1,4 +1,4 @@
-package com.dewakoding.androidchartjs
+package com.mobile.itfest.utils
 
 import android.content.Context
 import android.net.Uri
@@ -53,6 +53,7 @@ class AndroidChartJSView  @JvmOverloads constructor(
 
         webView.loadDataWithBaseURL(baseUrl, htmlData, "text/html", "UTF-8", null)
 
+        removeView(webView)
         addView(webView)
     }
 

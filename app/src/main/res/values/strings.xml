@@ -17,4 +17,10 @@
     <string name="welcome">Welcome</string>
     <string name="register_me">Register Me!</string>
     <string name="login_suggestion">Already have an account?</string>
+
+    <string name="tab_text_1">Day</string>
+    <string name="tab_text_2">Week</string>
+    <string name="tab_text_3">Month</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

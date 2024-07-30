@@ -1,4 +1,4 @@
-package com.dewakoding.androidchartjs
+package com.mobile.itfest.utils
 
 import android.content.Context
 import android.webkit.JavascriptInterface

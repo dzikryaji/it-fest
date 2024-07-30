@@ -24,6 +24,7 @@ import com.mobile.itfest.R
 import com.mobile.itfest.data.Result
 import com.mobile.itfest.data.model.FocusTime
 import com.mobile.itfest.databinding.ActivityMainBinding
+import com.mobile.itfest.ui.DataVisualitation.DurationDataActivity
 import com.mobile.itfest.ui.ViewModelFactory
 import com.mobile.itfest.ui.login.LoginActivity
 
@@ -71,6 +72,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
         viewModel.fetchTop10UsersByFocusTime()
+
+        binding.buttonChart.setOnClickListener {
+            val intent = Intent(this, DurationDataActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupTimer() {

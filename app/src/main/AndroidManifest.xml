@@ -18,11 +18,15 @@
             android:name=".ui.onboarding.OnBoardingActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.DataVisualitation.DurationDataActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.register.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:exported="false"></activity>
+            android:exported="false">
+        </activity>
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false" />

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.mobile.itfest.data.Repository
 import com.mobile.itfest.di.Injection
+import com.mobile.itfest.ui.DataVisualitation.DurationDataViewModel
 import com.mobile.itfest.ui.login.LoginViewModel
 import com.mobile.itfest.ui.main.MainViewModel
 import com.mobile.itfest.ui.register.RegisterViewModel
@@ -28,6 +29,9 @@ class ViewModelFactory(
             }
             (modelClass.isAssignableFrom(RegisterViewModel::class.java)) -> {
                 RegisterViewModel(repository) as T
+            }
+            (modelClass.isAssignableFrom(DurationDataViewModel::class.java)) -> {
+                DurationDataViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
