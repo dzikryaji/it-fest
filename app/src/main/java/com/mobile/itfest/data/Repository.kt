@@ -44,7 +44,8 @@ class Repository(
                 val uid = it.uid
                 val userData = mapOf(
                     "name" to name,
-                    "email" to email
+                    "email" to email,
+                    "point" to 0L
                 )
                 userCollection.document(uid).set(userData).await()
                 Result.Success("User Registered")
@@ -67,6 +68,31 @@ class Repository(
             }
         } else {
             Result.Error("Please log in first")
+        }
+    }
+
+    suspend fun addPoint(pointAdded: Long): Result<String> {
+        val userResult = retrieveUser()
+        return if (userResult is Result.Success) {
+            val user = userResult.data
+            val auth = FirebaseAuth.getInstance()
+            val userId = auth.currentUser?.uid ?: return Result.Error("User ID is null")
+
+            val newPoint = user.point + pointAdded
+            val updates = mapOf(
+                "point" to newPoint
+            )
+
+            return try {
+                val db = FirebaseFirestore.getInstance()
+                val userCollection = db.collection("users")
+                userCollection.document(userId).update(updates).await()
+                Result.Success("Point Added")
+            } catch (e: Exception) {
+                Result.Error("Error adding point: ${e.message}")
+            }
+        } else {
+            Result.Error("Failed to retrieve user")
         }
     }
 
@@ -148,7 +174,7 @@ class Repository(
             // Fetch user details
             val top10 = sortedUserFocusTimeList.map { (userId, totalFocusTime) ->
                 val userSnapshot = userCollection.document(userId).get().await()
-                userSnapshot.toObject(User::class.java)?.copy(totalFocusTime = totalFocusTime.toInt())
+                userSnapshot.toObject(User::class.java)?.copy(totalFocusTime = totalFocusTime)
             }
 
             Log.d(TAG, "Top 10: $top10")
