@@ -84,8 +84,6 @@ class Repository(
             )
 
             return try {
-                val db = FirebaseFirestore.getInstance()
-                val userCollection = db.collection("users")
                 userCollection.document(userId).update(updates).await()
                 Result.Success("Point Added")
             } catch (e: Exception) {
