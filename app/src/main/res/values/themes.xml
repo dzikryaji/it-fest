@@ -3,6 +3,7 @@
     <style name="Base.Theme.ITFest" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/blue_500</item>
+        <item name="colorSecondaryContainer">@color/blue_50</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>

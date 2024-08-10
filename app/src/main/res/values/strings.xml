@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">IT Fest</string>
+    <string name="app_name">Paws &amp; Focus</string>
 
     <string name="register">Register</string>
     <string name="login">Login</string>
@@ -26,4 +26,7 @@
     <string name="profile">Profile</string>
     <string name="leaderboard">Leaderboard</string>
     <string name="timer">Timer</string>
+    <string name="time_separator">:</string>
+    <string name="start_timer">start timer</string>
+    <string name="timer_settings">Timer Settings</string>
 </resources>

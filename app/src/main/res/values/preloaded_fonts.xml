@@ -3,5 +3,6 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/kumbh_sans</item>
         <item>@font/kumbh_sans_bold</item>
+        <item>@font/roboto</item>
     </array>
 </resources>
