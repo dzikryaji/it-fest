@@ -18,6 +18,9 @@
             android:name=".ui.focus.FocusActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.oldMain.OldMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.onboarding.OnBoardingActivity"
             android:exported="false" />
         <activity
@@ -28,7 +31,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:exported="false"></activity>
+            android:exported="false">
+        </activity>
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false" />

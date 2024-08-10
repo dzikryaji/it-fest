@@ -19,8 +19,8 @@ class FocusActivity : AppCompatActivity() {
     }
 
     private fun setFullScreen() {
+        enableEdgeToEdge()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            enableEdgeToEdge()
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
