@@ -64,17 +64,18 @@
         app:layout_constraintStart_toStartOf="@+id/profile_image_default"
         app:layout_constraintTop_toBottomOf="@+id/profile_image_default" />
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView_profile_picture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="8dp"
-        app:cardStrokeColor="@color/slate_200"
+        app:strokeColor="@color/slate_200"
         app:layout_constraintTop_toBottomOf="@+id/user_settings_tV" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -119,19 +120,20 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/ic_navigate_next" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="8dp"
-        app:cardStrokeColor="@color/slate_200"
+        app:strokeColor="@color/slate_200"
         app:layout_constraintTop_toBottomOf="@+id/cardView_profile_picture" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -176,19 +178,20 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/ic_navigate_next" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="8dp"
-        app:cardStrokeColor="@color/slate_200"
+        app:strokeColor="@color/slate_200"
         app:layout_constraintTop_toBottomOf="@+id/cardView_username" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -233,19 +236,20 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/ic_navigate_next" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView_change_pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="8dp"
-        app:cardStrokeColor="@color/slate_200"
+        app:strokeColor="@color/slate_200"
         app:layout_constraintTop_toBottomOf="@+id/cardView_email" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -290,7 +294,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/ic_navigate_next" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 
     <TextView
@@ -303,17 +307,18 @@
         app:layout_constraintStart_toStartOf="@+id/cardView_change_pass"
         app:layout_constraintTop_toBottomOf="@+id/cardView_change_pass" />
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView_change_language"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="8dp"
-        app:cardStrokeColor="@color/slate_200"
+        app:strokeColor="@color/slate_200"
         app:layout_constraintTop_toBottomOf="@+id/app_settings_tV" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -358,19 +363,20 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/ic_navigate_next" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView_faq"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="8dp"
-        app:cardStrokeColor="@color/slate_200"
+        app:strokeColor="@color/slate_200"
         app:layout_constraintTop_toBottomOf="@+id/cardView_change_language" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -415,19 +421,20 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/ic_navigate_next" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView_privacy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="8dp"
-        app:cardStrokeColor="@color/slate_200"
+        app:strokeColor="@color/slate_200"
         app:layout_constraintTop_toBottomOf="@+id/cardView_faq" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -472,9 +479,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/ic_navigate_next" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button3"
         android:layout_width="0dp"
         android:layout_height="60dp"
