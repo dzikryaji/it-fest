@@ -2,12 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red_logout">#B3261E</color>
     <color name="blue_300">#68B9FD</color>
     <color name="blue_500">#1E96FC</color>
     <color name="blue_50">#E9F5FF</color>
     <color name="blue_800">#11538B</color>
     <color name="blue_900">#0D3F6A</color>
     <color name="yellow_500">#FCF300</color>
+    <color name="slate_25">#F9FAFB</color>
+    <color name="slate_500">#5E718D</color>
     <color name="slate_400">#8897AE</color>
     <color name="slate_600">#455468</color>
     <color name="slate_900">#1C222B</color>
