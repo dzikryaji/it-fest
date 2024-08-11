@@ -150,13 +150,11 @@ class Repository(
         return result
     }
 
-    suspend fun fetchTop10UsersByFocusTime() {
-
-        try {
+    suspend fun fetchTop10UsersByFocusTime(): Result<List<User>> {
+        return try {
             // Fetch all focus time records
             val focusTimeSnapshot = focusTimeCollection.get().await()
-            val focusTimeRecords =
-                focusTimeSnapshot.documents.mapNotNull { it.toObject(FocusTime::class.java) }
+            val focusTimeRecords = focusTimeSnapshot.documents.mapNotNull { it.toObject(FocusTime::class.java) }
 
             // Aggregate focus time for each user
             val userFocusTimeMap = focusTimeRecords.groupBy { it.userId }
@@ -166,20 +164,23 @@ class Repository(
             // Sort users by total focus time (highest to lowest)
             val sortedUserFocusTimeList = userFocusTimeMap.entries
                 .sortedByDescending { it.value }
-                .map { it.toPair() }.take(10)
+                .map { it.toPair() }
+                .take(10)
             Log.d(TAG, "Sorted User Focus Time List: $sortedUserFocusTimeList")
 
             // Fetch user details
-            val top10 = sortedUserFocusTimeList.map { (userId, totalFocusTime) ->
+            val top10 = sortedUserFocusTimeList.mapNotNull { (userId, totalFocusTime) ->
                 val userSnapshot = userCollection.document(userId).get().await()
                 userSnapshot.toObject(User::class.java)?.copy(totalFocusTime = totalFocusTime)
             }
 
             Log.d(TAG, "Top 10: $top10")
+            Result.Success(top10)
         } catch (e: Exception) {
             // Handle errors and return an empty list or handle as needed
             println("Error fetching user data: ${e.message}")
             Log.d(TAG, "fetchTop10UsersByFocusTime: ${e.javaClass.name} : ${e.message}")
+            Result.Error(e.message ?: "Unknown error") // Provide a non-null string
         }
     }
 
