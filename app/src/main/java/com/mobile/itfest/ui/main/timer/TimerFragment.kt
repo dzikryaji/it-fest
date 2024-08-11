@@ -3,6 +3,7 @@ package com.mobile.itfest.ui.main.timer
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,15 @@ class TimerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentTimerBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setListener()
+    }
+
+    private fun setListener() {
         binding.btnTimer.setOnClickListener {
             val intent = Intent(requireActivity(), FocusActivity::class.java)
 
@@ -36,17 +46,35 @@ class TimerFragment : Fragment() {
                 ActivityOptionsCompat.makeSceneTransitionAnimation(
                     requireActivity() as Activity,
                     Pair(binding.llTimer, "timer"),
+                    Pair(binding.tvHours, "hours"),
+                    Pair(binding.tvMinutes, "minutes"),
+                    Pair(binding.tvSeconds, "seconds"),
                 )
 
             requireActivity().startActivity(intent, optionsCompat.toBundle())
         }
+    }
 
-        viewModel.retrieveUser().observe(viewLifecycleOwner){
-            if (it is Result.Success) {
-                val user = it.data
-                binding.tvUser.text = "Hello, ${user.name}"
+    override fun onResume() {
+        super.onResume()
+        setObserve()
+    }
+
+    private fun setObserve() {
+        viewModel.retrieveUser().observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Success -> {
+                    val user = result.data
+                    Log.d("TimerFragment", "User retrieved: ${user.name}")
+                    binding.tvUser.text = "Hello, ${user.name}!"
+                }
+                is Result.Loading -> {
+                    Log.d("TimerFragment", "Loading user data")
+                }
+                is Result.Error -> {
+                    Log.e("TimerFragment", "Error retrieving user: ${result.error}")
+                }
             }
         }
-        return binding.root
     }
 }

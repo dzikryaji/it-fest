@@ -1,8 +1,13 @@
 package com.mobile.itfest.ui.main
 
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.mobile.itfest.R
 import com.mobile.itfest.databinding.ActivityMainBinding
@@ -17,6 +22,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var leaderboardFragment: LeaderboardFragment
     private lateinit var profileFragment: ProfileFragment
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean? ->
+        if (!isGranted!!)
+            Toast.makeText(this,
+                "Unable to display notification due to permission decline",
+                Toast.LENGTH_LONG)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -28,6 +42,12 @@ class MainActivity : AppCompatActivity() {
         profileFragment = ProfileFragment()
 
         setBottomNavView()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) !=
+                PackageManager.PERMISSION_GRANTED)
+                requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        }
     }
 
     private fun setBottomNavView() {

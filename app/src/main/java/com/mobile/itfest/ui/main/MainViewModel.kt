@@ -12,6 +12,8 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
+    private val user = MutableLiveData<Result<User>>()
+
     fun logout() = repository.logout()
 
     fun uploadFocusTime(focusTime: FocusTime) {
@@ -28,12 +30,13 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun retrieveUser() : LiveData<Result<User>>{
-        val result = MutableLiveData<Result<User>>()
-        result.value = Result.Loading
-        viewModelScope.launch {
-            result.value = repository.retrieveUser()
+    fun retrieveUser(): LiveData<Result<User>> {
+        if (user.value == null || user.value is Result.Error) {
+            user.value = Result.Loading
+            viewModelScope.launch {
+                user.value = repository.retrieveUser()
+            }
         }
-        return result
+        return user
     }
 }

@@ -46,6 +46,7 @@
             tools:layout_editor_absoluteX="18dp">
 
             <TextView
+                android:id="@+id/tv_hours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_rounded_blue_300"
@@ -54,7 +55,8 @@
                 android:paddingVertical="46dp"
                 android:text="00"
                 android:textColor="@color/white"
-                android:textSize="57sp" />
+                android:textSize="57sp"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:layout_width="0dp"
@@ -67,15 +69,17 @@
                 android:textSize="57sp" />
 
             <TextView
+                android:id="@+id/tv_minutes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_rounded_blue_300"
                 android:fontFamily="@font/roboto"
                 android:paddingHorizontal="18dp"
                 android:paddingVertical="46dp"
-                android:text="00"
+                android:text="25"
                 android:textColor="@color/white"
-                android:textSize="57sp" />
+                android:textSize="57sp"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:layout_width="0dp"
@@ -88,6 +92,7 @@
                 android:textSize="57sp" />
 
             <TextView
+                android:id="@+id/tv_seconds"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_rounded_blue_300"
@@ -96,7 +101,8 @@
                 android:paddingVertical="46dp"
                 android:text="00"
                 android:textColor="@color/white"
-                android:textSize="57sp" />
+                android:textSize="57sp"
+                tools:ignore="HardcodedText" />
 
 
         </LinearLayout>
