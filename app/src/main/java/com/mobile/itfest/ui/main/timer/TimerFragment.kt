@@ -35,6 +35,7 @@ class TimerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setObserve()
         setListener()
     }
 
@@ -53,11 +54,6 @@ class TimerFragment : Fragment() {
 
             requireActivity().startActivity(intent, optionsCompat.toBundle())
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        setObserve()
     }
 
     private fun setObserve() {
