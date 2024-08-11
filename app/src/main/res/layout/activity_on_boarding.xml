@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         android:layout_marginBottom="52dp"
-        android:background="@drawable/bg_button"
+        android:background="@drawable/bg_button_blue"
         android:fontFamily="@font/kumbh_sans_bold"
         android:text="I'm Interested"
         android:textSize="16sp"

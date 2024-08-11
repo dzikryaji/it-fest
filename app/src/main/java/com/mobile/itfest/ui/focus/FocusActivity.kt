@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.view.ViewCompat
@@ -16,9 +17,14 @@ import com.google.firebase.Timestamp
 import com.mobile.itfest.R
 import com.mobile.itfest.data.model.FocusTime
 import com.mobile.itfest.databinding.ActivityFocusBinding
+import com.mobile.itfest.ui.ViewModelFactory
 import com.mobile.itfest.ui.oldMain.OldMainActivity
 
 class FocusActivity : AppCompatActivity() {
+
+    private val viewModel by viewModels<FocusViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
 
     private lateinit var binding: ActivityFocusBinding
     private lateinit var notificationManager: NotificationManager
@@ -46,6 +52,8 @@ class FocusActivity : AppCompatActivity() {
     override fun onBackPressed() {
         notificationManager.cancel(OldMainActivity.NOTIFICATION_ID)
         countDownTimer.cancel()
+        focusTime.focusTime = elapsedTime
+        viewModel.uploadFocusTime(focusTime)
         binding.tvHours.text = "00"
         binding.tvMinutes.text = "25"
         binding.tvSeconds.text = "00"
@@ -68,6 +76,7 @@ class FocusActivity : AppCompatActivity() {
                     countDownTimer.cancel()
                     if (elapsedTime - focusTime.focusTime > 5000) {
                         focusTime.focusTime = elapsedTime
+                        viewModel.uploadFocusTime(focusTime)
                     }
                     isPaused = true
                     btnResume.isEnabled = true
@@ -125,6 +134,8 @@ class FocusActivity : AppCompatActivity() {
                 binding.tvHours.text = "00"
                 binding.tvMinutes.text = "00"
                 binding.tvSeconds.text = "00"
+                elapsedTime = duration
+                onBackPressed()
             }
         }
     }
