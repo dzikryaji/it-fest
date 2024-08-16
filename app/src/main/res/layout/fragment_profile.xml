@@ -485,7 +485,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button3"
+            android:id="@+id/button_logout"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginTop="16dp"

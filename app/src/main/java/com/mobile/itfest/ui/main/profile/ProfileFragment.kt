@@ -1,5 +1,6 @@
 package com.mobile.itfest.ui.main.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.mobile.itfest.databinding.FragmentProfileBinding
 import com.mobile.itfest.databinding.FragmentTimerBinding
 import com.mobile.itfest.ui.ViewModelFactory
 import com.mobile.itfest.ui.main.MainViewModel
+import com.mobile.itfest.ui.onboarding.OnBoardingActivity
 
 class ProfileFragment : Fragment() {
 
@@ -32,6 +34,16 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setObserve()
+        setListener()
+    }
+
+    private fun setListener() {
+        binding.buttonLogout.setOnClickListener {
+            viewModel.logout()
+            val intent = Intent(requireContext(), OnBoardingActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }
     }
 
     private fun setObserve() {
