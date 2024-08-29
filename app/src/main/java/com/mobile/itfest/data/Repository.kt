@@ -18,7 +18,9 @@ class Repository(
 ) {
     private val userCollection = firestore.collection("users")
     private val focusTimeCollection = firestore.collection("focus_time")
-    private val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+    private val _leaderboard = MutableLiveData<List<User>>()
+    val leaderboard: LiveData<List<User>> get() = _leaderboard
 
     private val _tasks = MutableLiveData<List<Task>>()
     val tasks: LiveData<List<Task>> get() = _tasks
@@ -90,6 +92,7 @@ class Repository(
             )
 
             return try {
+                val userId = FirebaseAuth.getInstance().currentUser?.uid
                 if (userId != null) {
                     userCollection.document(userId).update(updates).await()
                     Result.Success("Point Added")
@@ -162,8 +165,8 @@ class Repository(
         return result
     }
 
-    suspend fun fetchTop10UsersByFocusTime(): Result<List<User>> {
-        return try {
+    suspend fun fetchTop10UsersByFocusTime() {
+        try {
             // Fetch all focus time records
             val focusTimeSnapshot = focusTimeCollection.get().await()
             val focusTimeRecords = focusTimeSnapshot.documents.mapNotNull { it.toObject(FocusTime::class.java) }
@@ -187,17 +190,16 @@ class Repository(
             }
 
             Log.d(TAG, "Top 10: $top10")
-            Result.Success(top10)
+            _leaderboard.value = top10
         } catch (e: Exception) {
-            // Handle errors and return an empty list or handle as needed
-            println("Error fetching user data: ${e.message}")
             Log.d(TAG, "fetchTop10UsersByFocusTime: ${e.javaClass.name} : ${e.message}")
-            Result.Error(e.message ?: "Unknown error") // Provide a non-null string
+
         }
     }
 
     suspend fun uploadTask(task: Task): Result<String> {
         return try {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
             if (userId != null) {
                 userCollection
                     .document(userId)
@@ -220,6 +222,7 @@ class Repository(
 
     suspend fun deleteTask(taskId: String): Result<String> {
         return try {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
             if (userId != null) {
                 userCollection
                     .document(userId)
@@ -242,6 +245,7 @@ class Repository(
 
     suspend fun markTaskAsDone(taskId: String): Result<String> {
         return try {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
             if (userId != null) {
                 userCollection
                     .document(userId)
@@ -262,6 +266,7 @@ class Repository(
     }
 
     fun startTaskListener() {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
         userId?.let { uid ->
             taskListener = userCollection
                 .document(uid)

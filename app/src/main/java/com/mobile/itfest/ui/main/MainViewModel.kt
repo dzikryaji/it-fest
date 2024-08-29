@@ -14,22 +14,16 @@ import kotlinx.coroutines.launch
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
     private val user = MutableLiveData<Result<User>>()
-    private val top10Users = MutableLiveData<Result<List<User>>>()
+    val leaderboard = repository.leaderboard
+
     val tasks = repository.tasks
 
     fun logout() = repository.logout()
 
-
     fun retrieveFocusTime(): LiveData<Result<List<FocusTime>>> = repository.retrieveUserFocusTime()
 
-    fun fetchTop10UsersByFocusTime(): LiveData<Result<List<User>>> {
-        if (top10Users.value == null || top10Users.value is Result.Error) {
-            top10Users.value = Result.Loading
-            viewModelScope.launch {
-                top10Users.value = repository.fetchTop10UsersByFocusTime()
-            }
-        }
-        return top10Users
+    fun fetchTop10UsersByFocusTime() = viewModelScope.launch {
+        repository.fetchTop10UsersByFocusTime()
     }
 
     fun retrieveUser(): LiveData<Result<User>> {

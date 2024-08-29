@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobile.itfest.adapter.LeaderboardAdapter
-import com.mobile.itfest.data.Result
 import com.mobile.itfest.databinding.FragmentLeaderboardBinding
 import com.mobile.itfest.ui.ViewModelFactory
 import com.mobile.itfest.ui.main.MainViewModel
@@ -37,40 +36,32 @@ class LeaderboardFragment : Fragment() {
     }
 
     private fun setObserve() {
-        viewModel.fetchTop10UsersByFocusTime().observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Result.Success -> {
-                    val data = result.data
-                    Log.d("LeaderboardFragment", "User retrieved: $data")
-                    val first = data[0]
-                    val second = data[1]
-                    val third = data[2]
-                    val userList = ArrayList(data.subList(3, data.size))
+        viewModel.leaderboard.observe(viewLifecycleOwner) { data ->
+            Log.d("LeaderboardFragment", "User retrieved: $data")
+            val first = data[0]
+            val second = data[1]
+            val third = data[2]
+            val userList = ArrayList(data.subList(3, data.size))
 
-                    binding.apply {
-                        tvNameFirst.text = first.name
-                        tvNameSecond.text = second.name
-                        tvNameThird.text = third.name
+            binding.apply {
+                tvNameFirst.text = first.name
+                tvNameSecond.text = second.name
+                tvNameThird.text = third.name
 
-                        tvPointsFirst.text = "${first.totalFocusTime / 1000} pts"
-                        tvPointsSecond.text = "${second.totalFocusTime / 1000} pts"
-                        tvPointsThird.text = "${third.totalFocusTime / 1000} pts"
+                tvPointsFirst.text = "${first.totalFocusTime / 1000} pts"
+                tvPointsSecond.text = "${second.totalFocusTime / 1000} pts"
+                tvPointsThird.text = "${third.totalFocusTime / 1000} pts"
 
-                        val adapter = LeaderboardAdapter()
-                        rvLeaderboard.layoutManager = LinearLayoutManager(requireActivity())
-                        rvLeaderboard.adapter = adapter
-                        adapter.submitList(userList)
-                    }
-
-                }
-                is Result.Loading -> {
-                    Log.d("LeaderboardFragment", "Loading user data")
-                }
-                is Result.Error -> {
-                    Log.e("LeaderboardFragment", "Error retrieving user: ${result.error}")
-                }
+                val adapter = LeaderboardAdapter()
+                rvLeaderboard.layoutManager = LinearLayoutManager(requireActivity())
+                rvLeaderboard.adapter = adapter
+                adapter.submitList(userList)
             }
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchTop10UsersByFocusTime()
+    }
 }

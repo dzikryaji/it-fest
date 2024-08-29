@@ -89,6 +89,11 @@ class MainActivity : AppCompatActivity() {
         viewModel.startTaskListener()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchTop10UsersByFocusTime()
+    }
+
     override fun onStop() {
         super.onStop()
         viewModel.stopTaskListener()
