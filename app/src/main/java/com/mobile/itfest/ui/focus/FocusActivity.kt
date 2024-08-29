@@ -18,7 +18,6 @@ import com.mobile.itfest.R
 import com.mobile.itfest.data.model.FocusTime
 import com.mobile.itfest.databinding.ActivityFocusBinding
 import com.mobile.itfest.ui.ViewModelFactory
-import com.mobile.itfest.ui.oldMain.OldMainActivity
 
 class FocusActivity : AppCompatActivity() {
 
@@ -50,10 +49,6 @@ class FocusActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        notificationManager.cancel(OldMainActivity.NOTIFICATION_ID)
-        countDownTimer.cancel()
-        focusTime.focusTime = elapsedTime
-        viewModel.uploadFocusTime(focusTime)
         binding.tvHours.text = "00"
         binding.tvMinutes.text = "25"
         binding.tvSeconds.text = "00"
@@ -94,9 +89,21 @@ class FocusActivity : AppCompatActivity() {
 
             btnAdd.setOnClickListener {
                 duration += 10 * 60 * 1000L
-                if(isPaused) {
-                    val newMinute =  tvMinutes.text.toString().toInt() + 10
-                    tvMinutes.text = newMinute.toString()
+                if (isPaused) {
+                    val millisUntilFinished = duration - elapsedTime
+
+                    // Calculate remaining hours, minutes, and seconds
+                    val hours = millisUntilFinished / 1000 / 60 / 60
+                    val minutes = (millisUntilFinished / 1000 / 60) % 60
+                    val seconds = (millisUntilFinished / 1000) % 60
+
+                    // Build Notification
+                    buildNotification(String.format("%02d:%02d:%02d", hours, minutes, seconds))
+
+                    // Update the TextView elements
+                    binding.tvHours.text = String.format("%02d", hours)
+                    binding.tvMinutes.text = String.format("%02d", minutes)
+                    binding.tvSeconds.text = String.format("%02d", seconds)
                 } else {
                     countDownTimer.cancel()
                     countDownTimer = createCountDownTimer(duration - elapsedTime)
@@ -179,6 +186,14 @@ class FocusActivity : AppCompatActivity() {
 
             notificationManager.createNotificationChannel(notificationChannel)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        notificationManager.cancel(NOTIFICATION_ID)
+        countDownTimer.cancel()
+        focusTime.focusTime = elapsedTime
+        viewModel.uploadFocusTime(focusTime)
     }
 
     companion object {
