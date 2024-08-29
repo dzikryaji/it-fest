@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mobile.itfest.data.Repository
 import com.mobile.itfest.data.Result
 import com.mobile.itfest.data.model.FocusTime
+import com.mobile.itfest.data.model.Task
 import com.mobile.itfest.data.model.User
 import kotlinx.coroutines.launch
 
@@ -14,14 +15,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     private val user = MutableLiveData<Result<User>>()
     private val top10Users = MutableLiveData<Result<List<User>>>()
+    val tasks = repository.tasks
 
     fun logout() = repository.logout()
 
-    fun uploadFocusTime(focusTime: FocusTime) {
-        viewModelScope.launch {
-            repository.uploadFocusTime(focusTime)
-        }
-    }
 
     fun retrieveFocusTime(): LiveData<Result<List<FocusTime>>> = repository.retrieveUserFocusTime()
 
@@ -44,4 +41,35 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
         return user
     }
+
+    fun uploadTask(task: Task): LiveData<Result<String>> {
+        val result = MutableLiveData<Result<String>>()
+        result.value = Result.Loading
+        viewModelScope.launch {
+            result.value = repository.uploadTask(task)
+        }
+        return result
+    }
+
+    fun deleteTask(task: Task): LiveData<Result<String>> {
+        val result = MutableLiveData<Result<String>>()
+        result.value = Result.Loading
+        viewModelScope.launch {
+            result.value = repository.deleteTask(task.id)
+        }
+        return result
+    }
+
+    fun markTaskAsDone(task: Task): LiveData<Result<String>> {
+        val result = MutableLiveData<Result<String>>()
+        result.value = Result.Loading
+        viewModelScope.launch {
+            result.value = repository.markTaskAsDone(task.id)
+        }
+        return result
+    }
+
+    fun startTaskListener() = repository.startTaskListener()
+
+    fun stopTaskListener() = repository.stopTaskListener()
 }

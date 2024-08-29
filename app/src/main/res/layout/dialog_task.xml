@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:background="@drawable/bg_rounded_24"
+    android:backgroundTint="@color/blue_100"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="30dp">
+
+    <TextView
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/kumbh_sans_bold"
+        android:gravity="center"
+        android:text="@string/add_task"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/ed_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_rounded_12"
+        android:backgroundTint="@color/white"
+        android:hint="@string/fill_task_name"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="16dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_deadline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:hint="@string/deadline"
+        app:boxStrokeColor="@color/blue_900"
+        app:hintTextColor="@color/blue_900">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_deadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_clock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:hint="@string/clock"
+        app:boxStrokeColor="@color/blue_900"
+        app:hintTextColor="@color/blue_900">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_clock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_button_blue"
+        android:text="@string/add" />
+</LinearLayout>

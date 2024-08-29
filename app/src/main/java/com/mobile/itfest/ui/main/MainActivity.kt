@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.mobile.itfest.R
 import com.mobile.itfest.databinding.ActivityMainBinding
+import com.mobile.itfest.ui.ViewModelFactory
 import com.mobile.itfest.ui.main.leaderboard.LeaderboardFragment
 import com.mobile.itfest.ui.main.profile.ProfileFragment
 import com.mobile.itfest.ui.main.timer.TimerFragment
@@ -21,6 +23,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var timerFragment: TimerFragment
     private lateinit var leaderboardFragment: LeaderboardFragment
     private lateinit var profileFragment: ProfileFragment
+    private val viewModel by viewModels<MainViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -77,5 +82,15 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, fragment)
             .commit()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.startTaskListener()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.stopTaskListener()
     }
 }
