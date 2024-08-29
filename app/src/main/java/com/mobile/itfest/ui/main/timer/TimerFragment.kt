@@ -74,7 +74,7 @@ class TimerFragment : Fragment(), TaskAdapter.TaskClickListener {
         }
 
         binding.btnTask.setOnClickListener {
-            showCustomDialog()
+            showTaskDialog()
         }
 
 
@@ -115,36 +115,45 @@ class TimerFragment : Fragment(), TaskAdapter.TaskClickListener {
         binding.rvTask.adapter = adapter
     }
 
-    private fun showCustomDialog(task: Task? = null) {
-        // Use view binding to inflate the custom dialog layout
+    private fun showTaskDialog(task: Task? = null) {
         val binding = DialogTaskBinding.inflate(layoutInflater)
 
         val dialog = Dialog(requireActivity())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(binding.root)
 
-        // Set a custom background if needed
         dialog.window?.setBackgroundDrawableResource(R.color.transparent)
 
-        Log.d("Dialog", "showCustomDialog: bisa")
-
-        // Get the current window attributes
+        // Set the dialog's layout parameters
         val layoutParams = dialog.window?.attributes
         layoutParams?.width = WindowManager.LayoutParams.MATCH_PARENT
         layoutParams?.height = WindowManager.LayoutParams.WRAP_CONTENT
 
-        // Apply margins directly
         dialog.window?.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT
         )
 
-        // Wrap the dialog's root view in a FrameLayout to apply margins
+        // Apply margins to the dialog
         val marginInPx = 16.dp
         val layout = dialog.window?.decorView as? ViewGroup
         layout?.setPadding(marginInPx, marginInPx, marginInPx, marginInPx)
 
+        // If the task is not null, populate the fields with the task data
+        task?.let {
+            binding.edName.setText(it.name)
+            val calendar = Calendar.getInstance().apply {
+                time = it.deadline.toDate()
+            }
+            val formattedDate = String.format("%02d/%02d/%d", calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR))
+            binding.edDeadline.setText(formattedDate)
+            val formattedTime = String.format("%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
+            binding.edClock.setText(formattedTime)
+        }
+
         binding.apply {
+            btnAdd.text = if (task == null) "Add Task" else "Update Task"
+
             btnAdd.setOnClickListener {
                 // Validate fields
                 val name = edName.text.toString().trim()
@@ -152,7 +161,6 @@ class TimerFragment : Fragment(), TaskAdapter.TaskClickListener {
                 val clockText = edClock.text.toString().trim()
 
                 if (name.isEmpty() || deadlineText.isEmpty() || clockText.isEmpty()) {
-                    // Show a toast message if any field is empty
                     Toast.makeText(
                         requireContext(),
                         "Please fill in all fields",
@@ -164,8 +172,7 @@ class TimerFragment : Fragment(), TaskAdapter.TaskClickListener {
                 // Parse the deadline to a Timestamp
                 val parts = deadlineText.split("/")
                 if (parts.size != 3) {
-                    Toast.makeText(requireContext(), "Invalid date format", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(requireContext(), "Invalid date format", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
 
@@ -176,8 +183,7 @@ class TimerFragment : Fragment(), TaskAdapter.TaskClickListener {
                 // Parse the time from clockText
                 val timeParts = clockText.split(":")
                 if (timeParts.size != 2) {
-                    Toast.makeText(requireContext(), "Invalid time format", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(requireContext(), "Invalid time format", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
 
@@ -199,12 +205,12 @@ class TimerFragment : Fragment(), TaskAdapter.TaskClickListener {
 
                 val taskId = task?.id ?: UUID.randomUUID().toString()
 
-                // Create a Task object
+                // Create or update the Task object
                 val newTask = Task(
                     id = taskId,
                     name = name,
                     deadline = deadline,
-                    isDone = false
+                    isDone = task?.isDone ?: false
                 )
 
                 // Upload to Firestore
@@ -214,11 +220,9 @@ class TimerFragment : Fragment(), TaskAdapter.TaskClickListener {
                             showToast(requireActivity(), result.data)
                             dialog.dismiss()
                         }
-
                         is Result.Loading -> {
                             Log.d("TimerFragment", "Loading upload data")
                         }
-
                         is Result.Error -> {
                             showToast(requireActivity(), result.error)
                             dialog.dismiss()
@@ -267,18 +271,14 @@ class TimerFragment : Fragment(), TaskAdapter.TaskClickListener {
 
                 timePickerDialog.show()
             }
-
         }
 
         dialog.show()
     }
 
-    companion object{
-        private const val TAG = "TimerFragment"
-    }
 
     override fun onEditClick(task: Task) {
-        showCustomDialog(task)
+        showTaskDialog(task)
     }
 
     override fun onDeleteClick(task: Task) {
