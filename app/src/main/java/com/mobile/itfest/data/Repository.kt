@@ -27,6 +27,13 @@ class Repository(
 
     private var taskListener: ListenerRegistration? = null
 
+    private var _isBuyPremium = MutableLiveData<Boolean>()
+    val isBuyPremium: LiveData<Boolean>
+        get() = _isBuyPremium
+
+    fun unlockPremium(state: Boolean) {
+        _isBuyPremium.value = state
+    }
 
     fun checkLoggedInState(): Boolean {
         val user = auth.currentUser

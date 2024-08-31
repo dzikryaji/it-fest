@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_50"
+    tools:context=".ui.notes.selection.NoteTypeSelectionActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_bottom_round_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="64dp"
+            android:src="@drawable/ic_arrow_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/notes_Tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="62dp"
+            android:fontFamily="@font/kumbh_sans_bold"
+            android:text="Notes"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/back_arrow"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/note_summarize_Tv"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="13dp"
+            android:fontFamily="@font/kumbh_sans"
+            android:paddingTop="4dp"
+            android:text="Select desired notes"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/notes_Tv"
+            app:layout_constraintTop_toBottomOf="@+id/notes_Tv" />
+
+        <ImageView
+            android:id="@+id/paw_image"
+            android:layout_width="149dp"
+            android:layout_height="126dp"
+            android:src="@drawable/img_paw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/note_type_name_Tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:fontFamily="@font/kumbh_sans_bold"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_layout"
+        android:text="Template" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/note_selection_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/select_button"
+        app:layout_constraintTop_toBottomOf="@+id/note_type_name_Tv" />
+
+    <Button
+        android:id="@+id/select_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="53dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginBottom="37dp"
+        android:fontFamily="@font/kumbh_sans_bold"
+        android:text="Select Type"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
