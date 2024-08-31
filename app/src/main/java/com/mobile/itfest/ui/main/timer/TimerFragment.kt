@@ -28,6 +28,7 @@ import com.mobile.itfest.databinding.FragmentTimerBinding
 import com.mobile.itfest.ui.ViewModelFactory
 import com.mobile.itfest.ui.focus.FocusActivity
 import com.mobile.itfest.ui.main.MainViewModel
+import com.mobile.itfest.ui.notes.main.NoteMainActivity
 import com.mobile.itfest.ui.notes.selection.NoteTypeSelectionActivity
 import com.mobile.itfest.utils.ToastManager.showToast
 import com.mobile.itfest.utils.dp
@@ -79,7 +80,7 @@ class TimerFragment : Fragment(), TaskAdapter.TaskClickListener {
         }
 
         binding.noteBtn.setOnClickListener {
-            val intent = Intent(requireActivity(), NoteTypeSelectionActivity::class.java)
+            val intent = Intent(requireActivity(), NoteMainActivity::class.java)
             startActivity(intent)
         }
     }

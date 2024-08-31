@@ -24,7 +24,6 @@ class NoteMainActivity : AppCompatActivity() {
         binding.fabAddNote.setOnClickListener {
             val intent = Intent(this, NoteTypeSelectionActivity::class.java)
             startActivity(intent)
-            finish()
         }
     }
 }

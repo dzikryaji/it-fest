@@ -1,5 +1,6 @@
 package com.mobile.itfest.ui.notes.selection
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -22,6 +23,7 @@ import com.mobile.itfest.R
 import com.mobile.itfest.databinding.ActivityNoteTypeSelectionBinding
 import com.mobile.itfest.ui.ViewModelFactory
 import com.mobile.itfest.ui.main.MainViewModel
+import com.mobile.itfest.ui.notes.create.CreateNoteActivity
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlin.math.abs
 
@@ -68,9 +70,11 @@ class NoteTypeSelectionActivity : AppCompatActivity() {
 
     private fun updateSelectButtonState(position: Int, state: Boolean) {
         if (position == 0) {
-            /*binding.selectButton.setOnClickListener{
-                //TODO: navigate to note creation
-            }*/
+            binding.selectButton.setOnClickListener{
+                val intent = Intent(this, CreateNoteActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
 
             binding.selectButton.setBackgroundColor(
                 ContextCompat.getColor(
@@ -102,8 +106,11 @@ class NoteTypeSelectionActivity : AppCompatActivity() {
                 )
             )
             binding.selectButton.isEnabled = true
-            //TODO: navigate to note creation
-
+            binding.selectButton.setOnClickListener{
+                val intent = Intent(this, CreateNoteActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
 
         Log.d("NoteTypeSelectionActivity", "updateSelectButtonState: $position")
