@@ -8,6 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.toObject
 import com.mobile.itfest.data.model.FocusTime
+import com.mobile.itfest.data.model.Note
 import com.mobile.itfest.data.model.Task
 import com.mobile.itfest.data.model.User
 import kotlinx.coroutines.tasks.await
@@ -25,7 +26,11 @@ class Repository(
     private val _tasks = MutableLiveData<List<Task>>()
     val tasks: LiveData<List<Task>> get() = _tasks
 
+    private val _notes = MutableLiveData<List<Note>>()
+    val notes: LiveData<List<Note>> get() = _notes
+
     private var taskListener: ListenerRegistration? = null
+    private var noteListener: ListenerRegistration? = null
 
     private var _isBuyPremium = MutableLiveData<Boolean>()
     val isBuyPremium: LiveData<Boolean>
@@ -296,6 +301,54 @@ class Repository(
     fun stopTaskListener() {
         taskListener?.remove()
     }
+
+    suspend fun uploadNote(note: Note): Result<String> {
+        return try {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            if (userId != null) {
+                userCollection
+                    .document(userId)
+                    .collection("notes")
+                    .document(note.id)
+                    .set(note)
+                    .await()
+
+                Log.d("Firestore", "Note successfully added: $note")
+                Result.Success("Note added successfully") // Return success result
+            } else {
+                Log.e("Firestore", "User not logged in")
+                Result.Error("User not logged in") // Return error result
+            }
+        } catch (e: Exception) {
+            Log.e("Firestore", "Error adding note", e)
+            Result.Error("Failed to upload note: ${e.message}") // Return error result with exception message
+        }
+    }
+
+    fun startNoteListener() {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        userId?.let { uid ->
+            noteListener = userCollection
+                .document(uid)
+                .collection("notes")
+                .addSnapshotListener { snapshot, e ->
+                    if (e != null) {
+                        // Handle error, e.g., log it
+                        return@addSnapshotListener
+                    }
+                    snapshot?.let {
+                        val noteItems = it.toObjects(Note::class.java)
+                        Log.d(TAG, "startTaskListener: $noteItems")
+                        _notes.postValue(noteItems) // Update LiveData with the list of tasks
+                    }
+                }
+        }
+    }
+
+    fun stopNoteListener() {
+        noteListener?.remove()
+    }
+
 
 
     companion object {

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
+    android:backgroundTint="@color/white"
     app:strokeColor="@color/blue_200"
     app:cardCornerRadius="12dp">
 
@@ -14,7 +15,7 @@
         android:backgroundTint="@color/white">
 
         <TextView
-            android:id="@+id/note_title_Tv"
+            android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -27,7 +28,7 @@
             tools:text="Judul Note" />
 
         <TextView
-            android:id="@+id/desc_note_Tv"
+            android:id="@+id/tv_desc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -38,9 +39,9 @@
             android:textColor="@color/slate_400"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/note_title_Tv"
-            app:layout_constraintStart_toStartOf="@+id/note_title_Tv"
-            app:layout_constraintTop_toBottomOf="@+id/note_title_Tv"
+            app:layout_constraintEnd_toEndOf="@+id/tv_title"
+            app:layout_constraintStart_toStartOf="@+id/tv_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
             tools:text="csdcbnjdshcbsdjhbcvdsjhbcvsjdhbcvjdshbcdsjhvcbds" />
 
 

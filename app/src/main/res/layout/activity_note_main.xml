@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         tools:listitem="@layout/item_notes_per_day"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -41,4 +41,5 @@
     <string name="clock">Clock</string>
     <string name="add">Add</string>
     <string name="fill_task_name">Fill Task Name</string>
+    <string name="notes">Notes</string>
 </resources>
