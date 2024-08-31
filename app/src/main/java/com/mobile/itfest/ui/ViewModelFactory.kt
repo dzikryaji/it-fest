@@ -9,8 +9,6 @@ import com.mobile.itfest.ui.DataVisualitation.DurationDataViewModel
 import com.mobile.itfest.ui.focus.FocusViewModel
 import com.mobile.itfest.ui.login.LoginViewModel
 import com.mobile.itfest.ui.main.MainViewModel
-import com.mobile.itfest.ui.notes.create.CreateNoteViewModel
-import com.mobile.itfest.ui.notes.main.NoteViewModel
 import com.mobile.itfest.ui.notes.selection.NoteTypeSelectionViewModel
 import com.mobile.itfest.ui.register.RegisterViewModel
 import com.mobile.itfest.ui.splashscreen.SplashScreenViewModel
@@ -48,6 +46,9 @@ class ViewModelFactory(
             }
             (modelClass.isAssignableFrom(NoteTypeSelectionViewModel::class.java)) -> {
                 NoteTypeSelectionViewModel(repository) as T
+            }
+            (modelClass.isAssignableFrom(UserLeaderboardDetailViewModel::class.java)) -> {
+                UserLeaderboardDetailViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

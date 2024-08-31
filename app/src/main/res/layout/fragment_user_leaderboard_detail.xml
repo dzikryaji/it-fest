@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/slate_25"
-    tools:context=".ui.main.leaderboard.user_detail.UserLeaderboardDetail">
+    tools:context=".ui.main.leaderboard.user_detail.UserLeaderboardDetailFragment">
 
     <ImageButton
         android:id="@+id/btn_back"
@@ -73,6 +73,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/tv_rank"
                     android:layout_width="34dp"
                     android:layout_height="34dp"
                     android:layout_marginStart="72dp"

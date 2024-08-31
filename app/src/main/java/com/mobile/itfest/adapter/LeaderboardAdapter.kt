@@ -1,14 +1,21 @@
 package com.mobile.itfest.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.mobile.itfest.R
 import com.mobile.itfest.data.model.User
 import com.mobile.itfest.databinding.ItemLeaderboardBinding
+import com.mobile.itfest.ui.main.leaderboard.user_detail.UserLeaderboardDetailFragment
 
 class LeaderboardAdapter: ListAdapter<User, LeaderboardAdapter.MyViewHolder>(DIFF_CALLBACK) {
+
+    private lateinit var fragment: Fragment
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MyViewHolder(
         ItemLeaderboardBinding.inflate(
@@ -17,6 +24,12 @@ class LeaderboardAdapter: ListAdapter<User, LeaderboardAdapter.MyViewHolder>(DIF
             false
         )
     )
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        //get fragment parent
+        fragment = recyclerView.context as Fragment
+    }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         getItem(position)?.let {
@@ -31,9 +44,19 @@ class LeaderboardAdapter: ListAdapter<User, LeaderboardAdapter.MyViewHolder>(DIF
                 tvRank.text = (position + 4).toString()
                 tvName.text = user.name
                 tvPoints.text = (user.totalFocusTime / 1000).toString()
+
+                userLayout.setOnClickListener{
+                    val userLeaderboardDetailFragment = UserLeaderboardDetailFragment.newInstance(user, position)
+                    fragment.parentFragmentManager.beginTransaction()
+                        .replace(R.id.container, userLeaderboardDetailFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
             }
         }
     }
+
+
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<User>() {
