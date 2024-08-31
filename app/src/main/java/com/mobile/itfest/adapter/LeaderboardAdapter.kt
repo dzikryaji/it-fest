@@ -13,9 +13,7 @@ import com.mobile.itfest.data.model.User
 import com.mobile.itfest.databinding.ItemLeaderboardBinding
 import com.mobile.itfest.ui.main.leaderboard.user_detail.UserLeaderboardDetailFragment
 
-class LeaderboardAdapter: ListAdapter<User, LeaderboardAdapter.MyViewHolder>(DIFF_CALLBACK) {
-
-    private lateinit var fragment: Fragment
+class LeaderboardAdapter (private val fragment: Fragment): ListAdapter<User, LeaderboardAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MyViewHolder(
         ItemLeaderboardBinding.inflate(
@@ -24,12 +22,6 @@ class LeaderboardAdapter: ListAdapter<User, LeaderboardAdapter.MyViewHolder>(DIF
             false
         )
     )
-
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-        super.onAttachedToRecyclerView(recyclerView)
-        //get fragment parent
-        fragment = recyclerView.context as Fragment
-    }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         getItem(position)?.let {

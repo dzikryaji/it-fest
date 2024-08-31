@@ -54,9 +54,9 @@ class UserLeaderboardDetailFragment : Fragment() {
                         val averageHoursInThisWeek = getAverageHoursInThisWeek(result.data)
                         val oneDayPeakHours = getOneDayPeakHours(result.data)
                         val totalHoursInThisWeek = getTotalHoursInThisWeek(result.data)
-                        _binding.averageHoursTv.text = String.format(Locale.getDefault(), "%.2f", averageHoursInThisWeek)
-                        _binding.peakHoursTv.text = String.format(Locale.getDefault(), "%.2f", oneDayPeakHours)
-                        _binding.totalHoursTv.text = String.format(Locale.getDefault(), "%.2f", totalHoursInThisWeek)
+                        _binding.averageHoursTv.text = String.format(Locale.getDefault(), "%.0f", averageHoursInThisWeek)
+                        _binding.peakHoursTv.text = String.format(Locale.getDefault(), "%.0f", oneDayPeakHours)
+                        _binding.totalHoursTv.text = String.format(Locale.getDefault(), "%.0f", totalHoursInThisWeek)
                         focusTime = result.data
                     }
                     else -> {
@@ -74,10 +74,20 @@ class UserLeaderboardDetailFragment : Fragment() {
             _binding.tvPointsFirst.text = totalTime.toString()
             _binding.questPointsTv.text = points[0].toString()
             _binding.dailyPointsTv.text = points[1].toString()
-            _binding.notesCreatedTv.text = points[2].toString()
+            _binding.notesCreatedPointsTv.text = points[2].toString()
         }
         position?.let {
-            _binding.tvRank.text = (it + 4).toString()
+            val rank = it + 4
+            when (rank) {
+                1 -> _binding.tvRank.text = "1st"
+                2 -> _binding.tvRank.text = "2nd"
+                3 -> _binding.tvRank.text = "3rd"
+                else -> _binding.tvRank.text = rank.toString() + "th"
+            }
+        }
+
+        _binding.btnBack.setOnClickListener {
+            requireActivity().onBackPressed()
         }
     }
 
@@ -154,6 +164,11 @@ class UserLeaderboardDetailFragment : Fragment() {
         val totalFocusTime = filteredFocusTimeList.sumOf { it.focusTime }
 
         // Calculate the average focus time in hours
+        val calculatedValue = totalFocusTime.toDouble() / (filteredFocusTimeList.size * 3600000)
+        if (calculatedValue.isNaN()) {
+            return 0.0
+        }
+
         return totalFocusTime.toDouble() / (filteredFocusTimeList.size * 3600000)
     }
 
@@ -260,6 +275,7 @@ class UserLeaderboardDetailFragment : Fragment() {
         fun newInstance(user: User, position: Int): UserLeaderboardDetailFragment {
             val fragment = UserLeaderboardDetailFragment()
             val args = Bundle()
+            args.putInt(POSITION, position)
             args.putParcelable(USER, user)
             fragment.arguments = args
             return fragment
