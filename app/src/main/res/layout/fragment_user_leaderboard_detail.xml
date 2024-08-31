@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/slate_25"
+    tools:context=".ui.main.leaderboard.user_detail.UserLeaderboardDetail">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="49dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/detail_Tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/kumbh_sans"
+        android:text="Details"
+        android:textAlignment="viewStart"
+        android:textColor="@color/slate_900"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_back"
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="@+id/btn_back" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="11dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rank_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
+                android:background="@drawable/bg_rounded_12"
+                android:backgroundTint="@color/blue_300"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_first"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="27dp"
+                    android:layout_marginTop="37dp"
+                    android:layout_marginBottom="31dp"
+                    android:src="@drawable/img_cat1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="72dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/bg_circle"
+                    android:backgroundTint="@color/yellow_500"
+                    android:fontFamily="@font/kumbh_sans_bold"
+                    android:gravity="center"
+                    android:text="1st"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_name_first"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="51dp"
+                    android:layout_marginEnd="27dp"
+                    android:layout_marginBottom="81dp"
+                    android:fontFamily="@font/kumbh_sans_bold"
+                    android:textColor="@color/white"
+                    android:textSize="28sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Verstappen" />
+
+                <TextView
+                    android:id="@+id/tv_points_first"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/kumbh_sans"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_name_first"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name_first"
+                    tools:text="1000 pts" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/quest_Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="34dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:text="Quest"
+                android:textAlignment="viewStart"
+                android:textColor="@color/slate_900"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/rank_layout"
+                app:layout_constraintTop_toBottomOf="@+id/rank_layout" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:text="pts"
+                android:textColor="@color/slate_900"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/rank_layout"
+                app:layout_constraintTop_toTopOf="@+id/quest_Tv" />
+
+            <TextView
+                android:id="@+id/quest_points_Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/kumbh_sans_bold"
+                android:text="TextView"
+                android:textAlignment="viewStart"
+                android:textColor="@color/blue_500"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                app:layout_constraintEnd_toStartOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="@+id/textView3"
+                tools:text="8000" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_line_vector"
+                app:layout_constraintEnd_toEndOf="@+id/textView3"
+                app:layout_constraintStart_toStartOf="@+id/quest_Tv"
+                app:layout_constraintTop_toBottomOf="@+id/quest_points_Tv" />
+
+            <TextView
+                android:id="@+id/daily_Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:text="Daily Task Completed"
+                android:textAlignment="viewStart"
+                android:textColor="@color/slate_900"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/rank_layout"
+                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:text="pts"
+                android:textColor="@color/slate_900"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/rank_layout"
+                app:layout_constraintTop_toTopOf="@+id/daily_Tv" />
+
+            <TextView
+                android:id="@+id/daily_points_Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/kumbh_sans_bold"
+                android:text="TextView"
+                android:textAlignment="viewStart"
+                android:textColor="@color/blue_500"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                app:layout_constraintEnd_toStartOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="@+id/textView4"
+                tools:text="8000" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_line_vector"
+                app:layout_constraintEnd_toEndOf="@+id/textView4"
+                app:layout_constraintStart_toStartOf="@+id/daily_Tv"
+                app:layout_constraintTop_toBottomOf="@+id/daily_points_Tv" />
+
+            <TextView
+                android:id="@+id/notes_created_Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:text="Notes Created"
+                android:textAlignment="viewStart"
+                android:textColor="@color/slate_900"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/rank_layout"
+                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:text="pts"
+                android:textColor="@color/slate_900"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/rank_layout"
+                app:layout_constraintTop_toTopOf="@+id/notes_created_Tv" />
+
+            <TextView
+                android:id="@+id/notes_created_points_Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/kumbh_sans_bold"
+                android:text="TextView"
+                android:textAlignment="viewStart"
+                android:textColor="@color/blue_500"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                app:layout_constraintEnd_toStartOf="@+id/textView5"
+                app:layout_constraintTop_toTopOf="@+id/textView5"
+                tools:text="8000" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_line_vector"
+                app:layout_constraintEnd_toEndOf="@+id/textView5"
+                app:layout_constraintStart_toStartOf="@+id/notes_created_Tv"
+                app:layout_constraintTop_toBottomOf="@+id/notes_created_points_Tv" />
+
+            <TextView
+                android:id="@+id/bar_Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:text="Span Time This Week"
+                android:textColor="@color/slate_900"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/notes_created_Tv"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+            <com.mobile.itfest.utils.AndroidChartJSView
+                android:id="@+id/week_chart"
+                android:layout_width="313dp"
+                android:layout_height="313dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="31dp"
+                app:layout_constraintStart_toStartOf="@+id/bar_Tv"
+                app:layout_constraintTop_toBottomOf="@+id/bar_Tv" />
+
+            <TextView
+                android:id="@+id/average_Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:text="Average"
+                android:textAlignment="viewStart"
+                android:textColor="@color/slate_900"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/rank_layout"
+                app:layout_constraintTop_toBottomOf="@+id/week_chart" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:text="Hours"
+                android:textColor="@color/slate_900"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/rank_layout"
+                app:layout_constraintTop_toTopOf="@+id/average_Tv" />
+
+            <TextView
+                android:id="@+id/average_hours_Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/kumbh_sans_bold"
+                android:text="TextView"
+                android:textAlignment="viewStart"
+                android:textColor="@color/blue_500"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                app:layout_constraintEnd_toStartOf="@+id/textView6"
+                app:layout_constraintTop_toTopOf="@+id/textView6"
+                tools:text="24" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_line_vector"
+                app:layout_constraintEnd_toEndOf="@+id/textView6"
+                app:layout_constraintStart_toStartOf="@+id/average_Tv"
+                app:layout_constraintTop_toBottomOf="@+id/average_hours_Tv" />
+
+            <TextView
+                android:id="@+id/peak_Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:text="1 Day Peak"
+                android:textAlignment="viewStart"
+                android:textColor="@color/slate_900"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/rank_layout"
+                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:text="Hours"
+                android:textColor="@color/slate_900"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/rank_layout"
+                app:layout_constraintTop_toTopOf="@+id/peak_Tv" />
+
+            <TextView
+                android:id="@+id/peak_hours_Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/kumbh_sans_bold"
+                android:text="TextView"
+                android:textAlignment="viewStart"
+                android:textColor="@color/blue_500"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView7"
+                app:layout_constraintEnd_toStartOf="@+id/textView7"
+                app:layout_constraintTop_toTopOf="@+id/textView7"
+                tools:text="24" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_line_vector"
+                app:layout_constraintEnd_toEndOf="@+id/textView7"
+                app:layout_constraintStart_toStartOf="@+id/peak_Tv"
+                app:layout_constraintTop_toBottomOf="@+id/peak_hours_Tv" />
+
+            <TextView
+                android:id="@+id/total_week_Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="70dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:text="1 Day Peak"
+                android:textAlignment="viewStart"
+                android:textColor="@color/slate_900"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/rank_layout"
+                app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:text="Hours"
+                android:textColor="@color/slate_900"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/rank_layout"
+                app:layout_constraintTop_toTopOf="@+id/total_week_Tv" />
+
+            <TextView
+                android:id="@+id/total_hours_Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/kumbh_sans_bold"
+                android:text="TextView"
+                android:textAlignment="viewStart"
+                android:textColor="@color/blue_500"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                app:layout_constraintEnd_toStartOf="@+id/textView8"
+                app:layout_constraintTop_toTopOf="@+id/textView8"
+                tools:text="24" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
