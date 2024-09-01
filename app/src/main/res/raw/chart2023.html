@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chart JS</title>
+    <style>
+        canvas {
+            width: 232dp;
+            height: 232dp;
+        }
+    </style>
 </head>
 <body>
     <div>
@@ -31,7 +37,15 @@
         options: {
           responsive: true,
           scales: {
+           x: {
+              grid: {
+                display: false
+              }
+            },
             y: {
+              grid: {
+                display: false
+              },
               beginAtZero: true,
             },
           },

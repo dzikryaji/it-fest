@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mobile.itfest.R
 import com.mobile.itfest.adapter.LeaderboardAdapter
 import com.mobile.itfest.databinding.FragmentLeaderboardBinding
 import com.mobile.itfest.ui.ViewModelFactory
 import com.mobile.itfest.ui.main.MainViewModel
+import com.mobile.itfest.ui.main.leaderboard.user_detail.UserLeaderboardDetailFragment
 
 
 class LeaderboardFragment : Fragment() {
@@ -52,7 +54,31 @@ class LeaderboardFragment : Fragment() {
                 tvPointsSecond.text = "${second.totalFocusTime / 1000} pts"
                 tvPointsThird.text = "${third.totalFocusTime / 1000} pts"
 
-                val adapter = LeaderboardAdapter()
+                btnFirstRank.setOnClickListener {
+                    val userLeaderboardDetailFragment = UserLeaderboardDetailFragment.newInstance(first, -3)
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.container, userLeaderboardDetailFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+
+                btnSecondRank.setOnClickListener {
+                    val userLeaderboardDetailFragment = UserLeaderboardDetailFragment.newInstance(second, -2)
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.container, userLeaderboardDetailFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+
+                btnThirdRank.setOnClickListener {
+                    val userLeaderboardDetailFragment = UserLeaderboardDetailFragment.newInstance(third, -1)
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.container, userLeaderboardDetailFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+
+                val adapter = LeaderboardAdapter(this@LeaderboardFragment)
                 rvLeaderboard.layoutManager = LinearLayoutManager(requireActivity())
                 rvLeaderboard.adapter = adapter
                 adapter.submitList(userList)

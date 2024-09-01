@@ -149,6 +149,28 @@ class Repository(
         }
     }
 
+    fun findOtherUserFocusTimeByUserId(userId: String): LiveData<Result<List<FocusTime>>> {
+        val result = MutableLiveData<Result<List<FocusTime>>>()
+        result.value = Result.Loading
+
+        val query = focusTimeCollection
+            .whereEqualTo("userId", userId)
+
+        query.addSnapshotListener { value, error ->
+            error?.let {
+                Log.d(TAG, "findOtherUserFocusTimeByUserId: ${it.message}")
+                result.value = it.message?.let { msg -> Result.Error(msg) }
+            }
+            value?.let { snapshot ->
+                val focusTimeList = snapshot.documents
+                    .mapNotNull { it.toObject<FocusTime>() } // Convert each document to FocusTime and filter out nulls
+                result.value = Result.Success(focusTimeList)
+            }
+        }
+
+        return result
+    }
+
     fun retrieveUserFocusTime(): LiveData<Result<List<FocusTime>>> {
         val result = MutableLiveData<Result<List<FocusTime>>>()
         result.value = Result.Loading
@@ -198,7 +220,7 @@ class Repository(
             // Fetch user details
             val top10 = sortedUserFocusTimeList.mapNotNull { (userId, totalFocusTime) ->
                 val userSnapshot = userCollection.document(userId).get().await()
-                userSnapshot.toObject(User::class.java)?.copy(totalFocusTime = totalFocusTime)
+                userSnapshot.toObject(User::class.java)?.copy(totalFocusTime = totalFocusTime, id = userId)
             }
 
             Log.d(TAG, "Top 10: $top10")
