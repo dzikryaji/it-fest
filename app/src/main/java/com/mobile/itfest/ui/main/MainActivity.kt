@@ -19,6 +19,7 @@ import com.mobile.itfest.ui.main.timer.TimerFragment
 
 class MainActivity : AppCompatActivity() {
 
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var timerFragment: TimerFragment
     private lateinit var leaderboardFragment: LeaderboardFragment

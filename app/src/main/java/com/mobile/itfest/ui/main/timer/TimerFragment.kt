@@ -25,6 +25,7 @@ import com.mobile.itfest.data.Result
 import com.mobile.itfest.data.model.Task
 import com.mobile.itfest.databinding.DialogTaskBinding
 import com.mobile.itfest.databinding.FragmentTimerBinding
+import com.mobile.itfest.ui.AIChat.ChatAIActivity
 import com.mobile.itfest.ui.ViewModelFactory
 import com.mobile.itfest.ui.focus.FocusActivity
 import com.mobile.itfest.ui.main.MainViewModel
@@ -81,6 +82,11 @@ class TimerFragment : Fragment(), TaskAdapter.TaskClickListener {
 
         binding.noteBtn.setOnClickListener {
             val intent = Intent(requireActivity(), NoteMainActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.AIBtn.setOnClickListener{
+            val intent = Intent(requireActivity(), ChatAIActivity::class.java)
             startActivity(intent)
         }
     }

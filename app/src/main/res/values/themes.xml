@@ -15,5 +15,5 @@
     </style>
 
 
-    <style name="Theme.ITFest" parent="Base.Theme.ITFest"/>
+    <style name="Theme.ITFest" parent="Base.Theme.ITFest" />
 </resources>
