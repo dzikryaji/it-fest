@@ -31,9 +31,10 @@ class ChatViewModel : ViewModel() {
                 messageList.add(MessageModel(question,"user"))
                 messageList.add(MessageModel("Typing....","model"))
 
-                val response = chat.sendMessage(question)
+                val response = chat.sendMessage("You are a Cat AI called paw that has a role as a focus counselor. User: $question")
+                val cleanedResponse = response.text.toString().replace("*", "")
                 messageList.removeLast()
-                messageList.add(MessageModel(response.text.toString(),"model"))
+                messageList.add(MessageModel(cleanedResponse,"model"))
             }catch (e : Exception){
                 messageList.removeLast()
                 messageList.add(MessageModel("Error : "+e.message.toString(),"model"))
