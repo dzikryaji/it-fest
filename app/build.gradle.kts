@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.google.gms.google.services)
     //Activate kotlin parcelize
     id("kotlin-parcelize")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -16,7 +17,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -42,6 +42,7 @@ android {
     buildFeatures {
         viewBinding = true
         compose = true
+        buildConfig=true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -95,4 +96,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
 }
